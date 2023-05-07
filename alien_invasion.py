@@ -20,10 +20,19 @@ class AlienInvasion:
     def run_game(self):
         """The main game loop."""
         while True:
-            for event in pygame.event.get():
+            self._check_events()
+            self._update_screen()
+
+
+    def _check_events(self):
+        """Events handle."""
+        for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
 
+
+    def _update_screen(self):
+            """Update the images on the screen and displays the new screen."""
             # Fill screen with to background color.
             self.screen.fill(self.settings.background_color)
 
@@ -32,6 +41,7 @@ class AlienInvasion:
 
             # Update screen
             pygame.display.flip()
+         
 
 
 if __name__ == '__main__':
