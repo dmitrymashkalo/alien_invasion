@@ -9,8 +9,8 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         # Upload the ship img
-        self.img = pygame.image.load('images/ship.png')
-        self.rect = self.img.get_rect()
+        self.image = pygame.image.load('images/ship.png')
+        self.rect = self.image.get_rect()
 
         # Every new ship will appear on mid bottom
         self.rect.midbottom = self.screen_rect.midbottom
@@ -32,4 +32,4 @@ class Ship:
     
     def blitme(self):
         """Draw the ship"""
-        self.screen.blit(self.img, self.rect)
+        self.screen.blit(self.image, self.rect)

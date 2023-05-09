@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:
     """A class for managing resources and game behavior."""
@@ -12,18 +13,23 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-        # Full screen mode
-        """ self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height """
-
-        # Window mode
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        full_screen_mode = True
+        if full_screen_mode == True:
+            # Full screen mode
+            self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+            self.settings.screen_width = self.screen.get_rect().width
+            self.settings.screen_height = self.screen.get_rect().height
+        else:
+            # Window mode
+            self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         # Name
         pygame.display.set_caption(self.settings.name)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.aliens = pygame.sprite.Group()
+
+        self._create_fleet()
 
         
     def run_game(self):
@@ -81,6 +87,35 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    
+    def _create_fleet(self):
+        """Creation of an invasion fleet"""
+        
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.width, alien.rect.height
+        available_space_x = self.settings.screen_width - (alien_width * 2)
+        number_aliens_x = available_space_x // (alien_width * 2)
+
+        # Определяем кол-во рядов помещающихся на экране
+        ship_height = self.ship.rect.height
+        available_space_y = self.settings.screen_height - (3 * alien_height) - ship_height
+        number_rows = available_space_y // (alien_height * 2)
+
+        # Создаем флот
+        for row in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row)
+
+
+    def _create_alien(self, alien_number, row_number):
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+        self.aliens.add(alien)
+
+
 
     def _update_screen(self):
             """Update the images on the screen and displays the new screen."""
@@ -93,6 +128,9 @@ class AlienInvasion:
             # Bullet
             for bullet in self.bullets.sprites():
                 bullet.draw_bullet()
+
+            # Aliens
+            self.aliens.draw(self.screen)
 
             # Update screen
             pygame.display.flip()
