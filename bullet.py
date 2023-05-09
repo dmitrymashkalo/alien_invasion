@@ -10,6 +10,10 @@ class Bullet(Sprite):
         self.settings = ai_game.settings
         self.color = self.settings.bullet_color
 
+        self.image = pygame.image.load('images/bullet.png')
+        self.image = pygame.transform.scale(self.image, (self.settings.bullet_width, self.settings.bullet_height))
+
+
         # Create a bullet in position (0,0) and assign correct position
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, self.settings.bullet_height)
         self.rect.midtop = ai_game.ship.rect.midtop
@@ -21,4 +25,4 @@ class Bullet(Sprite):
         self.rect.y = self.y
 
     def draw_bullet(self):
-        pygame.draw.rect(self.screen, self.color, self.rect)
+        self.screen.blit(self.image, self.rect)
