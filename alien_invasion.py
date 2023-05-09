@@ -13,8 +13,7 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-        full_screen_mode = True
-        if full_screen_mode == True:
+        if self.settings.full_screen_mode == True:
             # Full screen mode
             self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
             self.settings.screen_width = self.screen.get_rect().width
@@ -101,13 +100,14 @@ class AlienInvasion:
         available_space_y = self.settings.screen_height - (3 * alien_height) - ship_height
         number_rows = available_space_y // (alien_height * 2)
 
-        # Создаем флот
+        # Create fleet
         for row in range(number_rows):
             for alien_number in range(number_aliens_x):
                 self._create_alien(alien_number, row)
 
 
     def _create_alien(self, alien_number, row_number):
+        """ Create an alien and place it into the row """
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
