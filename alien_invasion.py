@@ -5,15 +5,16 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 
+
 class AlienInvasion:
-    """A class for managing resources and game behavior."""
+    """ A class for managing resources and game behavior """
 
     def __init__(self):
-        """Initiates the game and creates game resources."""
+        """ Initiates the game and creates game resources """
         pygame.init()
         self.settings = Settings()
 
-        if self.settings.full_screen_mode == True:
+        if self.settings.full_screen_mode:
             # Full screen mode
             self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
             self.settings.screen_width = self.screen.get_rect().width
@@ -22,7 +23,11 @@ class AlienInvasion:
             # Window mode
             self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         # Name
-        pygame.display.set_caption(self.settings.name)
+        pygame.display.set_caption(self.settings.screen_name)
+        # Background
+        self.bg = pygame.image.load('images/background.jpg')
+        self.bg = pygame.transform.scale(self.bg, (self.settings.screen_width, self.settings.screen_height))
+
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -87,9 +92,19 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
-        # Check for alien hits.
+        self._check__bullet_alien_collisions()
+
+
+    def _check__bullet_alien_collisions(self):
+        """ Check for alien hits """
         # When a hit is detected, remove the bullet and the alien - True, True.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
+        # Create new fleet if old is empty
+        if not self.aliens:
+            # Delete existing bullets
+            self.bullets.empty()
+            self._create_fleet()
 
 
     def _update_aliens(self):
@@ -142,26 +157,26 @@ class AlienInvasion:
 
 
     def _update_screen(self):
-            """Update the images on the screen and displays the new screen."""
-            # Fill screen with to background color.
-            self.screen.fill(self.settings.background_color)
+        """Update the images on the screen and displays the new screen."""
+        # Fill screen with to background color or background image.
+        #self.screen.fill(self.settings.background_color)
+        self.screen.blit(self.bg, (0, 0))
 
-            # Ship
-            self.ship.blitme()
+        # Ship
+        self.ship.blitme()
 
-            # Bullet
-            for bullet in self.bullets.sprites():
-                bullet.draw_bullet()
+        # Bullet
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
-            # Aliens
-            self.aliens.draw(self.screen)
+        # Aliens
+        self.aliens.draw(self.screen)
 
-            # Update screen
-            pygame.display.flip()
+        # Update screen
+        pygame.display.flip()
          
 
-
 if __name__ == '__main__':
-    # Create an object and run the game.
+    # Create an object and run the game
     alien_invasion = AlienInvasion()
     alien_invasion.run_game()
