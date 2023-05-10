@@ -78,6 +78,7 @@ class AlienInvasion:
 
         if self.button.rect.collidepoint(mouse_pos) and not self.stats.game_active:
             # Reset game stats
+            self.settings.initialize_dynamic_settings()
             self.stats.reset_stats()
             self.stats.game_active = True
 
@@ -102,6 +103,8 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_0:
+            self.settings.increase_speed()
 
 
     def _check_keyup_events(self, event):
@@ -137,6 +140,7 @@ class AlienInvasion:
         if not self.aliens:
             # Delete existing bullets
             self.bullets.empty()
+            self.settings.increase_speed()
             self._create_fleet()
 
 
