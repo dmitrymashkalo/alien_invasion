@@ -153,7 +153,7 @@ class AlienInvasion:
     def _ship_hit(self):
         # Increase ships left
         if self.stats.ships_left > 0:
-            self.stats.ships_left - 1
+            self.stats.ships_left -= 1
 
             # Clear list of aliens and bullets
             self.aliens.empty()
