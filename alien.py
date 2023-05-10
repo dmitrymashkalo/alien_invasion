@@ -12,7 +12,7 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # Upload the alien image
-        self.image = pygame.image.load('images/alien_yellow.png')
+        self.image = pygame.image.load('images/alien_pink.png')
         self.rect = self.image.get_rect()
 
         # Every new alien appear in left top corner of screen
