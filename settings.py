@@ -11,7 +11,7 @@ class Settings:
         self.full_screen_mode = True
 
         # Bullet settings
-        self.bullet_width = 9
+        self.bullet_width = 10
         self.bullet_height = 25
         self.bullet_color = (255, 60, 60)
         self.bullet_allowed = 3
@@ -24,6 +24,7 @@ class Settings:
 
         # Game acceleration rate
         self.speedup_scale = 1.1
+        self.score_scale = 1.5
 
         self.initialize_dynamic_settings()
 
@@ -37,8 +38,13 @@ class Settings:
         # fleet_direction = 1 is right, -1 is left
         self.fleet_direction = 1
 
+        # Score
+        self.alien_points = 15
+
 
     def increase_speed(self):
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
+
+        self.alien_points = int(self.alien_points * self.score_scale)
