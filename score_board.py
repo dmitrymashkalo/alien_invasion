@@ -1,6 +1,6 @@
 import pygame.font
 from pygame.sprite import Group
-from ship import Ship
+from health import Health
 
 
 class Scoreboard:
@@ -69,13 +69,13 @@ class Scoreboard:
 
     def prep_health(self):
         """ Convert health into a group of images """
-        self.health = Group()
+        self.healths = Group()
 
-        for health in range(self.stats.ships_left):
-            ship = Ship(self.ai_game)
-            ship.rect.x = 20 + health * (ship.rect.width + 5)
-            ship.rect.y = 10
-            self.health.add(ship)
+        for health_number in range(self.stats.ships_left):
+            health = Health()
+            health.rect.x = 20 + health_number * (health.rect.width + 5)
+            health.rect.y = 20
+            self.healths.add(health)
 
 
     def show_score(self):
@@ -83,7 +83,7 @@ class Scoreboard:
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.lvl_image, self.lvl_rect)
-        self.health.draw(self.screen)
+        self.healths.draw(self.screen)
 
 
     def check_high_score(self):
