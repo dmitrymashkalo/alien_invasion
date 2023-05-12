@@ -16,7 +16,7 @@ class Ship(Sprite):
         self.image = pygame.image.load('images/ship.png')
         self.rect = self.image.get_rect()
 
-        # Every new ship will appear on mid bottom
+        # Align ship on mid bottom
         self.rect.midbottom = self.screen_rect.midbottom
 
         # Save coordinats of ship in self.x as a float
@@ -43,6 +43,6 @@ class Ship(Sprite):
 
 
     def center_ship(self):
-        """ Move the ship in the midbottom """
+        """ Move the ship in the mid bottom """
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
