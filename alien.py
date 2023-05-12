@@ -15,7 +15,7 @@ class Alien(Sprite):
         self.image = pygame.image.load('images/alien_pink.png')
         self.rect = self.image.get_rect()
 
-        # Every new alien appear in left top corner of screen
+        # Align alien in left top corner of screen
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
 
