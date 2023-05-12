@@ -10,12 +10,12 @@ class Button:
         self.screen_rect = self.screen.get_rect()
 
         # Button sizes and properties
-        self.width, self.heigth = 200, 50
+        self.width, self.heigth = 250, 80
         self.button_color = (0, 255, 0)
         self.text_color = (255, 255, 255)
         self.font = pygame.font.SysFont(None, 48)
 
-        # Constructing the button's rect object and aligning it to the center of the screen
+        # Align the button in the center of the screen
         self.rect = pygame.Rect(0, 0, self.width, self.heigth)
         self.rect.center = self.screen_rect.center
 
@@ -23,8 +23,10 @@ class Button:
 
 
     def _prep_msg(self, msg):
-        """ Converts msg to a rectangle and aligns the text to the center """
+        """ Converts message to an image """
+        # Render into an image
         self.msg_image = self.font.render(msg, True, self.text_color, self.button_color)
+        # Align the image in the center of the screen
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 

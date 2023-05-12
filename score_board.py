@@ -30,7 +30,7 @@ class Scoreboard:
         rounded_score = round(self.stats.score)
         # Forming string
         score_str = "CURRENT POINTS: {:,}".format(rounded_score)
-        #Render the string into an image
+        # Render the string into an image
         self.score_image = self.font.render(score_str, True, self.settings.text_color, self.settings.background_color)
 
         # Align the image in the top right part of the screen
