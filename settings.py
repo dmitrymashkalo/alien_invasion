@@ -8,6 +8,7 @@ class Settings:
         self.screen_height = 800
         self.screen_name = "Alien Invasion"
         self.background_color = (230, 230, 230)
+        self.text_color = (60, 60, 60)
         self.full_screen_mode = True
 
         # Bullet settings
@@ -26,6 +27,7 @@ class Settings:
         self.speedup_scale = 1.1
         self.score_scale = 1.5
 
+        # Init dynamic settings
         self.initialize_dynamic_settings()
 
 
